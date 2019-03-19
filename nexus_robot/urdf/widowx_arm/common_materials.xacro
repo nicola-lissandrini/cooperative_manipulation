@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-	<xacro:include filename="$(find widowx_arm_description)/urdf/common_colours.xacro"/>
+	<xacro:include filename="$(find nexus_robot)/urdf/widowx_arm/common_colours.xacro"/>
 
 	<xacro:macro name="material_yellow">
 		<material name="">
