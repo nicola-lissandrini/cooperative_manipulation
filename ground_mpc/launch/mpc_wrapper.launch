@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="config" />
+
+	<group ns="ground">
+		<rosparam command="load" file="$(find ground_mpc)/config.$(arg config)/mpc_wrapper.yaml" />
+		<rosparam command="load" file="$(find ground_mpc)/config.$(arg config)/mpc_input_interface.yaml" />
+		<rosparam command="load" file="$(find ground_mpc)/config.$(arg config)/mpc_output_interface.yaml" />
+		<rosparam command="load" file="$(find ground_mpc)/config.$(arg config)/obstacles.yaml" />
+
+		<node pkg="ground_mpc" type="ground_mpc" name="ground_mpc" output="screen" />
+		<node pkg="ground_mpc" type="ground_input_interface" name="ground_input_interface" output="screen" />
+		<node pkg="ground_mpc" type="ground_output_interface" name="ground_output_interface" output="screen" />
+		<node pkg="ground_mpc" type="obstacle_detector" name="obstacle_detector" output="screen" />
+	</group>
+</launch>

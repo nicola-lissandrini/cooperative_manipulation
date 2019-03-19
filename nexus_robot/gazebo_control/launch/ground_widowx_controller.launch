@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="arm_name" default="ground_widowx"/>
+  <arg name="name" />
+
+  <!-- upload arm and gripper controller parameters -->
+  <rosparam file="$(find nexus_robot)/gazebo_control/config/ground_widowx_controller.yaml" command="load" /> 
+ 
+  <!-- spawn arm controller -->
+  <node pkg="controller_manager" type="spawner" name="$(arg arm_name)_arm_controller_spawner"
+   respawn="false" output="screen" 
+   args="ground_widowx_control/ground_joint_1_controller
+   		 ground_widowx_control/ground_joint_2_controller
+   		 ground_widowx_control/ground_joint_3_controller
+   		 ground_widowx_control/ground_joint_4_controller
+   		 ground_widowx_control/ground_joint_5_controller">
+  </node>
+  
+</launch>

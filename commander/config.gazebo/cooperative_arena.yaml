@@ -1,0 +1,69 @@
+commander:
+  rate: 100.0
+  target_pose_topic: /world/command/object_pose
+  command_topic: /world/command/commander
+  gripper_topic: /easy_gripper/grip_command
+  mpc_enable_topic: /neo11/mpc/enable 
+  mpc_disable_topic: /neo11/mpc/disable
+  attach_enable: true
+  aerial:
+    cmd_topic: /neo11/command/object_pose
+    odom_topic: /neo11/eef_odometry_estimated/odometry
+    gripper_link: neo11::neo11/aerial_gripper_rail_link
+    trajectory_topic: /neo11/command/trajectory
+    reach_threshold:
+      angular: 0.02
+      linear: 0.02
+      velocity: 0.01
+    grip_pose:
+      pos:
+        x: 0.25
+        y: 0.0
+        z: 0.0
+      rot:
+        x:  0.0
+        y:  -0.707
+        z:  0.707 
+        w:  0.0
+    termination_pose:
+      pos:
+        x: 0.1
+        y: 0.0
+        z: 0.40
+      rot:
+        x:  0.0
+        y:  -0.707
+        z:  0.707 
+        w:  0.0
+  ground:
+    cmd_topic: /ground/cmd_pose/object_pose
+    odom_topic: /ground/eef_odometry/odometry
+    gripper_link: nexus_base_arm::ground_gripper_rail_link
+    prediction_topic: /ground/mpc/prediction_trajectory
+    reach_threshold:
+      angular: 0.05
+      linear: 0.03
+      velocity: 0.05
+    grip_pose:
+      pos:
+        x: -0.25
+        y: 0.0
+        z: 0.0
+      rot:
+        x:  0.0
+        y:  0.708000643109
+        z:  0.0
+        w:  0.706211786572
+    termination_pose:
+      pos:
+        x: -0.20
+        y: 0.0
+        z: 0.13
+      rot:
+        x:  0.0
+        y:  0.708000643109
+        z:  0.0
+        w:  0.706211786572
+  object:
+    odom_topic: /world/beer_odometry/odometry
+    gripper_link: beer::world/beer_link

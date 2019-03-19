@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="config" />
+	<rosparam file="$(find commander)/config.$(arg config)/cooperative_arena.yaml" command="load" />
+	<node name="commander" pkg="commander" type="commander" output="screen" />
+</launch>

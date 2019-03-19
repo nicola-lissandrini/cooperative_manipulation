@@ -1,0 +1,13 @@
+forward_kinematics_estimator:
+  rate: 100.0
+  base_state_topic: /neo11/odometry_sensor1/odometry
+  joints_state_topic: /neo11/state/joint_states_values
+  end_effector_topic: /neo11/eef_odometry_estimated/odometry
+  joint_signs: [1.0, 1.0]
+  params:
+    l1a: 0.142
+    l1b: 0.0483
+    l2: 0.14
+    lbx: 0.0
+    lby: 0.0
+    lbz: 0.0

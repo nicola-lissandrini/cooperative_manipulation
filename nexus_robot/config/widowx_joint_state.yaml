@@ -1,0 +1,9 @@
+widowx_joint_state:
+  rate: 100.0
+  widowx_joint_topic_sub: /ground/joint_states
+  widowx_joint_topic_pub: /ground/state/joint_states_values
+  joints_names:
+    - ground_joint_1
+    - ground_joint_2
+    - ground_joint_3
+    - ground_joint_4

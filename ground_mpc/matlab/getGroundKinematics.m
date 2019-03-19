@@ -1,0 +1,3 @@
+function p_o = getGroundKinematics (q, params)
+    p_o = [q(5)+params(7).*cos(q(7))-params(8).*sin(q(7))+cos(q(7)+q(1)).*(params(1).*cos(q(2))+params(4).*sin(q(2)))+params(2).*cos(q(7)+q(1)).*sin(q(2)+q(3))+params(3).*cos(q(7)+q(1)).*cos(q(2)+q(3)).*sin(q(4))+params(3).*cos(q(7)+q(1)).*sin(q(2)+q(3)).*cos(q(4));q(6)+params(8).*cos(q(7))+params(7).*sin(q(7))+sin(q(7)+q(1)).*(params(1).*cos(q(2))+params(4).*sin(q(2)))+params(2).*sin(q(7)+q(1)).*sin(q(2)+q(3))+params(3).*cos(q(2)+q(3)).*sin(q(7)+q(1)).*sin(q(4))+params(3).*sin(q(7)+q(1)).*sin(q(2)+q(3)).*cos(q(4));params(9)-params(2).*cos(q(2)+q(3))-params(4).*cos(q(2))+params(1).*sin(q(2))-params(3).*cos(q(2)+q(3)+q(4))]
+end

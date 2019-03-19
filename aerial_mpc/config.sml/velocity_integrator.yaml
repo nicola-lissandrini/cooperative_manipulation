@@ -1,0 +1,9 @@
+velocity_integrator:
+    rate: 1000.0
+    velocity_reference_topic: /neo11/command/velocity_robust
+    state_topic: /neo11/odometry_sensor1/odometry
+    velocity_output_topic: /neo11/command/velocity
+    pid:
+      p: 1.1405
+      i: 2.3062
+      d: 0.00

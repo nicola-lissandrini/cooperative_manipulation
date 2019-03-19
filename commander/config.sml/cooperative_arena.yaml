@@ -1,0 +1,70 @@
+commander:
+  rate: 100.0
+  simulation: false
+  target_pose_topic: /world/command/object_pose
+  command_topic: /world/command/commander
+  gripper_topic: /easy_gripper/grip_command
+  mpc_enable_topic: /neo11/mpc/enable 
+  mpc_disable_topic: /neo11/mpc/disable
+  attach_enable: false
+  aerial:
+    cmd_topic: /neo11/command/object_pose
+    odom_topic: /popeye_end_effector/odom
+    gripper_link: neo11::neo11/aerial_gripper_rail_link
+    trajectory_topic: /neo11/command/trajectory
+    reach_threshold:
+      angular: 0.1
+      linear: 0.1
+      velocity: 10.1
+    grip_pose:
+      pos:
+        x: -0.5
+        y: 0.0
+        z: 0.26
+      rot:
+        x: -0.706328108495
+        y: 0.0331753394794
+        z: -0.0331753394794
+        w: 0.706328108495
+    termination_pose:
+      pos:
+        x: 0.1
+        y: 0.0
+        z: 0.40
+      rot:
+        x: -0.706328108495
+        y: 0.0331753394794
+        z: -0.0331753394794
+        w: 0.706328108495
+  ground:
+    cmd_topic: /ground/cmd_pose/object_pose
+    odom_topic: /nexus1_end_effector/odom_fixed
+    gripper_link: nexus_base_arm::ground_gripper_rail_link
+    prediction_topic: /ground/mpc/prediction_trajectory
+    reach_threshold:
+      angular: 0.02
+      linear: 0.02
+      velocity: 0.0001
+    grip_pose:
+      pos:
+        x: 0.15
+        y: 0.0
+        z: 0.0
+      rot:
+        x: -0.738621003292
+        y: -0.026905596392
+        z: 0.673580384853
+        w: 0.00213717569264
+    termination_pose:
+      pos:
+        x: -0.20
+        y: 0.0
+        z: 0.13
+      rot:
+        x:  0.0
+        y:  0.708000643109
+        z:  0.0
+        w:  0.706211786572
+  object:
+    odom_topic: /human/odom
+    gripper_link: beer::world/beer_link

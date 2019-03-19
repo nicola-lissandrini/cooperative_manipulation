@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot
+       xmlns:xacro="http://ros.org/wiki/xacro"
+       name="nexus_base_arm" >
+
+  <!-- widowx arm -->
+  <xacro:include filename="$(find nexus_robot)/urdf/widowx_arm/common_colours.xacro" />
+  <xacro:include filename="$(find nexus_robot)/urdf/widowx_arm/common_materials.xacro" />
+  <xacro:include filename="$(find nexus_robot)/urdf/widowx_arm/widowx.urdf.xacro" />
+  <link name="base_footprint" />
+  <xacro:widowx_arm parent="base_footprint" prefix="aerial_">
+    <origin xyz="0.08 0.015 0.05" rpy="0 0 0" />
+  </xacro:widowx_arm>
+</robot>

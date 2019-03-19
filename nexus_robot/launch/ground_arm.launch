@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="init_pos_x" default="0.0"/>
+ 	<arg name="init_pos_y" default="0.0"/>
+ 	<arg name="init_pos_z" default="0.0"/>
+	<!-- Load the URDF into the ROS Parameter Server -->
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(find widowx_arm_description)/robots/widowx_arm.urdf.xacro'"/>
+
+
+
+	<node pkg="gazebo_ros" type="spawn_model" name="spawn_robot" respawn="false" output="screen"
+	args="-param robot_description
+	      -urdf
+	      -model widowx_arm">
+	</node>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+</launch>

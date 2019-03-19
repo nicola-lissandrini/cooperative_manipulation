@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="aerial_robot">
+
+  <!-- controller manager -->
+  <xacro:include filename="$(find aerial_robot)/urdf/ros_controller.urdf.xacro" />
+
+  <!-- widowx arm -->
+  <xacro:include filename="$(find aerial_robot)/urdf/widowx_arm_2/common_colours.xacro" />
+  <xacro:include filename="$(find aerial_robot)/urdf/widowx_arm_2/common_materials.xacro" />
+  <xacro:include filename="$(find aerial_robot)/urdf/widowx_arm_2/widowx.urdf.xacro" />
+
+  <xacro:widowx_arm parent="neo11/base_link" prefix="aerial_" namespace="neo11">
+    <origin xyz="0 0.0 0" rpy="${pi} 0 0" />
+  </xacro:widowx_arm>
+  <xacro:include filename="$(find aerial_robot)/robots/neo11_odometry.gazebo" />
+
+
+  <!-- Mount a generic odometry sensor without odometry map (working everywhere). -->
+  <xacro:odometry_plugin_macro
+    namespace="${namespace}"
+    odometry_sensor_suffix="4"
+    parent_link="${namespace}/aerial_gripper_rail_link"
+    pose_topic="eef_odometry/pose"
+    pose_with_covariance_topic="eef_odometry/pose_with_covariance"
+    position_topic="eef_odometry/position"
+    transform_topic="eef_odometry/transform"
+    odometry_topic="eef_odometry/odometry"
+    parent_frame_id="world"
+    child_frame_id="eef_odometry4"
+    mass_odometry_sensor="0.00001"
+    measurement_divisor="1"
+    measurement_delay="0"
+    unknown_delay="0.0"
+    noise_normal_position="0 0 0"
+    noise_normal_quaternion="0 0 0"
+    noise_normal_linear_velocity="0 0 0"
+    noise_normal_angular_velocity="0 0 0"
+    noise_uniform_position="0 0 0"
+    noise_uniform_quaternion="0 0 0"
+    noise_uniform_linear_velocity="0 0 0"
+    noise_uniform_angular_velocity="0 0 0"
+    enable_odometry_map="false"
+    odometry_map=""
+    image_scale="">
+    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" /> <!-- [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] [kg m^2] -->
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </xacro:odometry_plugin_macro>
+</robot>

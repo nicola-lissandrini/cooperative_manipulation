@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="prediction_printer">
+  	<static>true</static>
+    <pose>0 0 0 0 0 0</pose>
+  	<link name="ground_prediction_base_link">
+  		<visual name="ground_prediction_visual">
+  			<plugin name="groundprecition_printer" filename="libprediction_printer.so">
+  				<topic>/ground/mpc/control</topic>
+  				<history_count>100</history_count>
+  				<config_data>
+  					<path name="eef" >0 1 2</path>
+  					<path name="base" z="0" color="Blue">16 17 -1</path>
+  				</config_data>
+  			</plugin>
+	  		<pose>0 0 0 0 0 0</pose>
+			<geometry>
+				<empty>
+				</empty>
+			</geometry>
+  		</visual>
+  		
+  	</link>
+  	<link name="aerial_prediction_ground_base_link">
+  		<visual name="aerial_prediction_visual">
+  			<plugin name="aerial_precition_printer" filename="libprediction_printer.so">
+  				<topic>/neo11/mpc/control</topic>
+  				<history_count>100</history_count>
+  				<config_data>
+  					<path name="eef" color="Orange">0 1 2</path>
+  				</config_data>
+  			</plugin>
+	  		<pose>0 0 0 0 0 0</pose>
+			<geometry>
+				<empty>
+				</empty>
+			</geometry>
+  		</visual>
+  	</link>
+
+  	<link name="aerial_prediction_ground_base_link2">
+  		<visual name="aerial_prediction_visual2">
+  			<plugin name="aerial_precition_printer2" filename="libprediction_printer.so">
+  				<topic>/neo11/command/trajectory_print</topic>
+  				<history_count>100</history_count>
+  				<config_data>
+  					<path name="eef" color="Purple">0 1 2</path>
+  				</config_data>
+  			</plugin>
+	  		<pose>0 0 0 0 0 0</pose>
+			<geometry>
+				<empty>
+				</empty>
+			</geometry>
+  		</visual>
+  	</link>
+  </model>
+</sdf>

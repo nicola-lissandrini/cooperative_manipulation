@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+	<include file="$(find gazebo_ros)/launch/empty_world.launch" />
+	<param name="robot_description" command="$(find xacro)/xacro.py $(find aerial_robot)/robots/arm.xacro.urdf" />
+
+	<node name="spawn_arm" pkg="gazebo_ros" type="spawn_model"
+		args="-param robot_description
+				-urdf
+				-model arm"
+		respawn="false" output="screen" />
+</launch>

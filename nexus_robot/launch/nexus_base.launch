@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="world" default="empty_world"/>
+  <arg name="init_pos_x" default="0.0"/>
+  <arg name="init_pos_y" default="0.0"/>
+  <arg name="init_pos_z" default="0.0"/>
+  <arg name="name" value="ground" />
+
+  <remap from="ground_widowx_control/ground_joint_1_controller/command" to="$(arg name)/cmd_vel/joint1" />
+  <remap from="ground_widowx_control/ground_joint_2_controller/command" to="$(arg name)/cmd_vel/joint2" />
+  <remap from="ground_widowx_control/ground_joint_3_controller/command" to="$(arg name)/cmd_vel/joint3" />
+  <remap from="ground_widowx_control/ground_joint_4_controller/command" to="$(arg name)/cmd_vel/joint4" />
+  <remap from="ground_widowx_control/ground_joint_5_controller/command" to="$(arg name)/cmd_vel/joint5" />
+  <remap from="/cmd_vel" to="/$(arg name)/cmd_vel/base" />
+  <remap from="/odom" to="/$(arg name)/state/base" />
+  <remap from="/joint_states" to="$(arg name)/state/joint_states" />
+
+  <!-- launch world -->
+  <include file="$(find nexus_robot)/launch/$(arg world).launch" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find nexus_robot)/robots/nexus_base_arm.urdf.xacro" />
+
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_robot" respawn="false" output="screen"
+    args="-param robot_description
+          -urdf
+          -x $(arg init_pos_x)
+          -y $(arg init_pos_y)
+          -z $(arg init_pos_z)
+          -model nexus_base_arm">
+  </node>
+
+  <include file="$(find nexus_robot)/gazebo_control/launch/ground_widowx_controller.launch">
+    <arg name="name" value="$(arg name)" />
+  </include>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" ns="$(arg name)/state/">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <rosparam file="$(find nexus_robot)/config/joint_state_controller.yaml" command="load"/> 
+  <node pkg="controller_manager" type="spawner" name="joint_state_controller_spawner" args="joint_state_controller" respawn="false" output="screen" />
+
+  <node pkg="nexus_robot" type="widowx_joint_control" name="widowx_joint_control" />
+
+</launch>

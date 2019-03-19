@@ -1,0 +1,10 @@
+mpc_input_interface:
+    rate: 100.0
+    base_state_topic: /neo11/ground_truth/odometry
+    joints_state_topic: /neo11/state/joint_states_values
+    end_effector_topic: /neo11/eef_odometry_estimated/odometry
+    reference_topic: /neo11/command/object_pose
+    obstacle_topic: /obstacles
+    mpc_input_topic: /neo11/mpc/input
+    trajectory_topic: /neo11/command/trajectory
+    joint_signs: [1, 1]

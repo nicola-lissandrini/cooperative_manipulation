@@ -1,0 +1,7 @@
+widowx_joint_state:
+  rate: 100.0
+  widowx_joint_topic_sub: /neo11/joint_states
+  widowx_joint_topic_pub: /neo11/state/joint_states_values
+  joints_names:
+    - neo11/aerial_joint_1
+    - neo11/aerial_joint_2

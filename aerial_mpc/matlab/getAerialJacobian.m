@@ -1,0 +1,3 @@
+function J = getAerialJacobian (q, params)
+    J = reshape([-cos(q(6)).*(params(2).*sin(q(1)+q(2))-params(1).*cos(q(1))+params(6).*sin(q(1))),-sin(q(6)).*(params(2).*sin(q(1)+q(2))-params(1).*cos(q(1))+params(6).*sin(q(1))),params(2).*cos(q(1)+q(2))+params(6).*cos(q(1))+params(1).*sin(q(1)),sin(q(6)),-cos(q(6)),0.0,-params(2).*sin(q(1)+q(2)).*cos(q(6)),-params(2).*sin(q(1)+q(2)).*sin(q(6)),params(2).*cos(q(1)+q(2)),sin(q(6)),-cos(q(6)),0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,-sin(q(6)).*(params(2).*cos(q(1)+q(2))+params(6).*cos(q(1))+params(1).*sin(q(1))),cos(q(6)).*(params(2).*cos(q(1)+q(2))+params(6).*cos(q(1))+params(1).*sin(q(1))),0.0,0.0,0.0,1.0],[6,6]);
+end

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="config" />
+
+	<group ns="neo11">
+		
+		<rosparam command="load" file="$(find aerial_mpc)/config.$(arg config)/mpc_input_interface.yaml" />
+		<rosparam command="load" file="$(find aerial_mpc)/config.$(arg config)/mpc_output_interface.yaml" />
+		<rosparam command="load" file="$(find aerial_mpc)/config.$(arg config)/obstacles.yaml" />
+		
+		<rosparam command="load" file="$(find aerial_mpc)/config.$(arg config)/mpc_wrapper.yaml" />
+		<node pkg="aerial_mpc" type="aerial_mpc" name="aerial_mpc" output="screen" />
+		<rosparam command="load" file="$(find aerial_mpc)/config.$(arg config)/mpc_wrapper.traj.yaml" />
+		<node pkg="aerial_mpc" type="aerial_mpc" name="aerial_mpc_traj" output="screen" />
+		<node pkg="aerial_mpc" type="aerial_input_interface" name="aerial_input_interface" output="screen" />
+		<node pkg="aerial_mpc" type="aerial_output_interface" name="aerial_output_interface" output="screen" />
+
+		<rosparam command="load" file="$(find aerial_mpc)/config.$(arg config)/trajectory_filter.yaml" />
+		<node pkg="aerial_mpc" type="aerial_trajectory_filter" name="aerial_trajectory_filter" />
+
+		<rosparam file="$(find aerial_mpc)/config.$(arg config)/forward_kinematics_estimator.yaml" command="load" />
+		<node pkg="aerial_mpc" type="aerial_forward_kinematics_estimator" name="aerial_forward_kinematics_estimator" output="screen" />
+		
+		
+		
+		<!--node pkg="aerial_mpc" type="obstacle_detector" name="obstacle_detector" output="screen" /-->
+	</group>
+</launch>

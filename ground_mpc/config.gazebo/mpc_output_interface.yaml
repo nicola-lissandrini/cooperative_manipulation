@@ -1,0 +1,14 @@
+mpc_output_interface:
+    rate: 100.0
+    mpc_control_topic: /ground/mpc/control
+    base_cmd_vel_topic: /ground/cmd_vel/base
+    joints_cmd_vel_topic: /ground/cmd_vel/joints
+    prediction_topic: /ground/mpc/prediction_trajectory
+    cmd_scale:
+      lin_base_vel: 1.0
+      ang_base_vel: 1.0
+      joint_vel: 0.87
+    joint_signs: [1, -1, -1, -1]
+    sat_base: 0.2 # BEFORE scaling
+    sat_joints: 0.2
+

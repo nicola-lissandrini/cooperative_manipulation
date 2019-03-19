@@ -1,0 +1,6 @@
+trajectory_filter:
+  rate: 100.0
+  mpc_sample_time: 0.1
+  ref_trajectory_topic: /neo11/mpc/prediction_trajectory
+  ref_vel_topic: /neo11/command/velocity
+  pose_command_topic: /neo11/command/pose

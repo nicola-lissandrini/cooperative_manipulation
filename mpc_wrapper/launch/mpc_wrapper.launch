@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+	<rosparam command="load" file="$(find mpc_wrapper)/config/mpc_wrapper.yaml" />
+	<node pkg="mpc_wrapper" type="mpc_wrapper_test" name="mpc_wrapper_test" output="screen" />
+	<node pkg="mpc_wrapper" type="simple_publisher" name="simple_publisher" output="screen" />
+</launch>

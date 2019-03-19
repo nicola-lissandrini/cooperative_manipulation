@@ -1,0 +1,9 @@
+aerial_widowx_control:
+  aerial_joint_1_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: neo11/aerial_joint_1
+    pid: {p: 100, i: 0.1, d: 0}
+  aerial_joint_2_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: neo11/aerial_joint_2
+    pid: {p: 100.0, i: 0.1, d: 0}

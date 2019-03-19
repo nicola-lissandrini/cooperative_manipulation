@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+	
+	<param name="obstacles_description" command="$(find xacro)/xacro.py $(find commander)/objects/obstacles.urdf.xacro" />
+	<node pkg="gazebo_ros" type="spawn_model" name="spawn_obst" respawn="false" output="screen"
+		args="-param obstacles_description
+			  -urdf
+			  -model obstacles" />
+</launch>

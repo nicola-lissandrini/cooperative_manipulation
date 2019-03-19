@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="name" />
+
+	<!-- upload arm and gripper controller parameters -->
+	<rosparam file="$(find aerial_robot)/config/aerial_widowx_controller.yaml" command="load" /> 
+
+	<!-- spawn arm controller -->
+	<node pkg="controller_manager" type="spawner" name="$(arg name)_arm_controller_spawner"
+	respawn="false" output="screen" 
+	args="aerial_widowx_control/aerial_joint_1_controller
+			 aerial_widowx_control/aerial_joint_2_controller">
+	</node>
+	<node pkg="aerial_robot" name="aerial_widowx_joint_control" type="aerial_widowx_joint_control" output="screen" />
+
+</launch>

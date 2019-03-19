@@ -1,0 +1,14 @@
+forward_kinematics_estimator:
+  rate: 100.0
+  base_state_topic: /popeye/odom
+  joints_state_topic: /arm/joints_poses
+  end_effector_topic: /popeye_end_effector/odom
+  joint_signs: [-1.0, 1.0]
+  params:
+    l1a: 0.142
+    l1b: 0.0483
+    l2: 0.14
+    lbx: 0.0
+    lby: 0.0
+    lbz: 0.0
+    

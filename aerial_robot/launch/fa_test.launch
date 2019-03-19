@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="config" value="sml" />
+
+	<arg name="dynamic_reconfigure" default="True"/>
+	<arg name="use_motor_speed" default="True"/>
+	<arg name="controller" default="fa_sim"/>
+
+
+	<!-- Setup qualisys for entities odometry -->
+	<include file="$(find qualisys)/launch/qualisys.launch"/>
+
+	<include file="$(find qualisys)/launch/qualisys_odom.launch">
+		<arg name="model" value="srd370_1" />
+	</include>
+
+
+	<include file="$(find aerial_mpc)/launch/mpc_wrapper.launch">
+		<arg name="config" value="sml" />
+	</include>
+	
+
+	<rosparam command="load" file="$(find uav_controllers)/resource/$(arg controller)/pid_gains/srd370_pid.yaml" />
+	<rosparam command="load" file="$(find uav_controllers)/resource/fa_exp/srd370.yaml"/>
+	<param name="gain_type" value="$(arg controller)" />
+	<param name="config_type" value="config_pid" />
+	<param name="uav_name" value="srd370" />
+
+	<node name="fa_controller" pkg="uav_controllers"
+	type="fa_controller.py" output="screen">
+		<remap from="~uav_odometry" to="srd370_1/odom"/>
+		<remap from="~uav_pose_reference" to="command/pose"/>
+		<remap from="~uav_roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust"/>
+	</node> 
+
+	<node name="dyn_reconfigure" pkg="rqt_gui" type="rqt_gui" args="-s reconfigure" if="$(arg dynamic_reconfigure)" />
+</launch>

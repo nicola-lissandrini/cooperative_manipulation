@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<launch>
+	<include file="$(find ground_mpc)/launch/mpc_wrapper.launch" ns="/ground/" />
+	<include file="$(find nexus_robot)/launch/nexus_base.launch" ns="/ground/" />
+</launch>

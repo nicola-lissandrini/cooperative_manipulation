@@ -1,0 +1,3 @@
+function p_o = getAerialKinematics (q, params)
+    p_o = [q(3)+params(3).*cos(q(6))-params(4).*sin(q(6))+cos(q(6)).*(params(6).*cos(q(1))+params(1).*sin(q(1)))+params(2).*cos(q(6)).*cos(q(1)).*cos(q(2))-params(2).*cos(q(6)).*sin(q(1)).*sin(q(2));q(4)+params(4).*cos(q(6))+params(3).*sin(q(6))+sin(q(6)).*(params(6).*cos(q(1))+params(1).*sin(q(1)))+params(2).*cos(q(1)).*cos(q(2)).*sin(q(6))-params(2).*sin(q(6)).*sin(q(1)).*sin(q(2));params(5)+q(5)-params(1).*cos(q(1))+params(6).*sin(q(1))+params(2).*cos(q(1)).*sin(q(2))+params(2).*cos(q(2)).*sin(q(1))];
+end

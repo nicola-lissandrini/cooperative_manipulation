@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="gazebo_world" default="empty_world"/>
+	<arg name="gazebo_debug" default="false"/>
+	<arg name="gazebo_gui" default="true"/>
+	<arg name="gazebo_paused" default="false"/>
+	<arg name="gazebo_verbose" default="false"/>
+	<arg name="world_name" default="basic" />
+
+
+	<!-- Remaps -->
+	<remap from="/ground/ground_widowx_control/ground_joint_1_controller/command" to="/ground/cmd_vel/joint1" />
+	<remap from="/ground/ground_widowx_control/ground_joint_2_controller/command" to="/ground/cmd_vel/joint2" />
+	<remap from="/ground/ground_widowx_control/ground_joint_3_controller/command" to="/ground/cmd_vel/joint3" />
+	<remap from="/ground/ground_widowx_control/ground_joint_4_controller/command" to="/ground/cmd_vel/joint4" />
+	<remap from="/ground/ground_widowx_control/ground_joint_5_controller/command" to="/ground/cmd_vel/joint5" />
+	<remap from="/ground/cmd_vel" to="/ground/cmd_vel/base" />
+	<remap from="/ground/odom" to="/ground/state/base" />
+	<!--remap from="/ground/joint_states" to="/ground/state/joint_states" /-->
+	<remap from="/neo11/aerial_widowx_control/aerial_joint_1_controller/command" to="/neo11/command/joint1" />
+	<remap from="/neo11/aerial_widowx_control/aerial_joint_2_controller/command" to="/neo11/command/joint2" />
+	<remap from="/neo11/joint_states" to="/neo11/state/joint_states" />
+
+	<!-- Init gazebo -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find rotors_gazebo)/worlds/$(arg world_name).world" />
+		<arg name="debug" value="$(arg gazebo_debug)" />
+		<arg name="paused" value="$(arg gazebo_paused)" />
+		<arg name="gui" value="$(arg gazebo_gui)" />
+		<arg name="verbose" value="$(arg gazebo_verbose)"/>
+	</include>
+
+
+	<include file="$(find commander)/launch/ground_robot.launch">
+		<arg name="init_pos_x" value="0" />
+		<arg name="init_pos_y" value="0" />
+		<arg name="init_pos_z" value="0" />
+	</include>
+	<!-- Load robots -->
+	<include file="$(find commander)/launch/aerial_robot.launch">
+		<arg name="x" value="1" />
+		<arg name="y" value="0" />
+		<arg name="z" value="0.5" />
+	</include>
+
+	<!-- World setup-->
+	<group ns="world">
+		<param name="table_description" command="$(find xacro)/xacro.py $(find commander)/objects/table.urdf" />
+
+		<param name="beer_description" command="$(find xacro)/xacro.py $(find commander)/objects/beer.urdf" />
+
+		<node name="spawn_beer" pkg="gazebo_ros" type="spawn_model"
+				args="-param beer_description
+						-urdf
+						-x 0.5
+						-y -0.5
+						-z 0.7
+						-model beer"
+				respawn="false" output="screen" />
+
+
+		<node name="spawn_table" pkg="gazebo_ros" type="spawn_model"
+				args="-param table_description
+						-urdf
+						-x 0.5
+						-y -0.5
+						-z 0
+						-model table"
+				respawn="false" output="screen" />
+
+		<param name="prediction_printer_description" textfile="$(find commander)/plugins/print_trajectory.sdf" />
+
+		<node name="spawn_prediction_printer" pkg="gazebo_ros" type="spawn_model"
+				args="-param prediction_printer_description
+					  -sdf
+					  -x 0
+					  -y 0
+					  -z 0
+					  -model prediction_printer"
+				respawn="false" output="screen" />
+		<include file="$(find commander)/launch/spawn_obstacles.launch" />
+	</group>
+
+</launch>

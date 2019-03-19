@@ -1,0 +1,22 @@
+ground_widowx_control:
+  ground_joint_1_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: ground_joint_1
+    pid: {p: 100, i: 0.1, d: 0}
+  ground_joint_2_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: ground_joint_2
+    pid: {p: 100.0, i: 0.1, d: 0}
+  ground_joint_3_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: ground_joint_3
+    pid: {p: 100.0, i: 0.1, d: 0}
+  ground_joint_4_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: ground_joint_4
+    pid: {p: 100.0, i: 0.1, d: 0}
+  ground_joint_5_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: ground_joint_5
+    pid: {p: 100.0, i: 0.1, d: 0}
+

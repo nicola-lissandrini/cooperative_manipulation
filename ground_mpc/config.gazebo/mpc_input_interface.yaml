@@ -1,0 +1,13 @@
+mpc_input_interface:
+    rate: 1000.0
+    base_state_topic: /ground/state/base
+    joints_state_topic: /ground/state/joint_states_values
+    fixed_end_effector_pose: /nexus1_end_effector/pose_fixed
+    fixed_end_effector_odom: /nexus1_end_effector/odom_fixed
+    end_effector_topic: /ground/eef_odometry/odometry
+    reference_topic: /ground/cmd_pose/object_pose
+    obstacle_topic: /world/obstacles
+    mpc_input_topic: /ground/mpc/input
+    joint_signs: [1, -1, -1, -1]
+    joint_offsets: [0.0, rad(pi/2), 0.0, 0.0]
+    fix_end_effector_rpy: [0.0, 0.0, 0.0]

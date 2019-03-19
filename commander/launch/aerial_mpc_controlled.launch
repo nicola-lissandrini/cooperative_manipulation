@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<arg name="arena" default="gazebo" />
+	
+	<include file="$(find aerial_robot)/launch/neo_arm.launch"/>
+	<include file="$(find aerial_mpc)/launch/mpc_wrapper.launch">
+		<arg name="config" value="$(arg arena)" />
+	</include>
+</launch>

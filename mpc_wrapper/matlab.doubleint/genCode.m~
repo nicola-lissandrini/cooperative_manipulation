@@ -1,0 +1,23 @@
+%% Simple control
+
+
+clear all
+close all
+
+EXPORT = 1;
+COMPILE = 1;
+
+%% Problem definition
+
+DifferentialState x v;
+Control u;
+
+OnlineData unused;
+
+f = [dot(x)==v;
+     dot(v)==u];
+ 
+h = [x; u];
+hN = [x];
+
+

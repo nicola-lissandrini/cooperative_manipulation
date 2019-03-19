@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+   <property name="M_SCALE" value="0.001"/>
+   <property name="M_PI" value="3.14159"/>
+   
+   <xacro:include filename="$(find nexus_robot)/urdf/widowx_arm/common_materials.xacro" />
+   <xacro:include filename="$(find nexus_robot)/urdf/widowx_arm/widowx.transmission.xacro" />
+   <xacro:macro name="default_inertia">
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002" />
+   </xacro:macro>
+   <xacro:macro name="default_mass">
+   </xacro:macro>
+
+
+   <!--link name="plate_top_link"/-->
+   <!--joint name="fixed" type="fixed">
+      <parent link="plate_top_link" />
+      <child link="ph_base_link" />
+   </joint-->
+
+   <xacro:macro name="widowx_arm" params="parent prefix *origin">
+      <!-- links -->
+      <link name="${prefix}arm_base_link">
+         <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/base_link.stl"/>
+            </geometry>
+            <xacro:material_black />
+	     </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/base_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.1" />
+            <xacro:default_inertia />
+         </inertial>
+      </link>
+      <link name="${prefix}shoulder_link">
+         <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/shoulder_link.stl" />
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/shoulder_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.01" />
+            <xacro:default_inertia />
+         </inertial>
+      </link>
+      <link name="${prefix}biceps_link">
+         <visual>
+			      <origin xyz="${M_SCALE*48.25} 0 ${M_SCALE*140}" rpy="0 0 0" />
+            <!--origin xyz="0 0 0" rpy="0 0 0" /-->
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/biceps_link.stl" />
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/biceps_link.stl" />
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.01" />
+            <xacro:default_inertia />
+         </inertial>
+      </link>
+      <link name="${prefix}forearm_link">
+         <visual>
+			      <origin xyz="0 0 ${M_SCALE*142.03}" rpy="0 0 0" />
+			<!--origin xyz="0 0 0" rpy="0 0 0" /-->
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/forearm_link.stl"/>
+            </geometry>
+           <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/forearm_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.01" />
+            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+         </inertial>
+      </link>
+      <link name="${prefix}wrist_1_link">
+         <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/wrist_1_link.stl"/>
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/wrist_1_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.01" />
+            <xacro:default_inertia />
+         </inertial>
+      </link>
+      <link name="${prefix}wrist_2_link">
+         <visual>
+            <origin xyz="0 0 ${M_SCALE*43}" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/wrist_2_link.stl"/>
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/wrist_2_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.01" />
+            <xacro:default_inertia />
+         </inertial>
+      </link>
+      <link name="${prefix}gripper_rail_link">
+         <visual>
+            <origin xyz="0 0 0" rpy="0 0 1.57" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/gripper_rail_link.stl"/>
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/gripper_rail_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.001" />
+            <xacro:default_inertia />/>
+         </inertial>
+      </link>
+      <link name="${prefix}gripper_aux_link">
+      </link>
+      <link name="${prefix}gripper_1_link">
+         <visual>
+            <origin xyz="0 -0.0007 0" rpy="0 0 1.57" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/gripper_hand_fixed_link.stl"/>
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/gripper_hand_fixed_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.001" />
+            <xacro:default_inertia />/>
+         </inertial>
+      </link>
+      <link name="${prefix}gripper_2_link">
+         <visual>
+            <origin xyz="0 0.0007 0" rpy="0 0 -1.57" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/gripper_hand_fixed_link.stl"/>
+            </geometry>
+            <xacro:material_black />
+         </visual>
+         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+               <mesh filename="package://nexus_robot/meshes/gripper_hand_fixed_link.stl"/>
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0.001" />
+            <xacro:default_inertia />/>
+         </inertial>
+      </link>
+      <!-- joints -->
+      <joint name="${prefix}arm_base_joint" type="fixed">
+         <insert_block name="origin" />
+         <parent link="${parent}" />
+         <child link="${prefix}arm_base_link"/>
+      </joint>
+      <joint name="${prefix}joint_1" type="revolute">
+         <origin xyz="0 0 ${M_SCALE*125}" rpy="0 0 0" />
+         <parent link="${prefix}arm_base_link" />
+         <child link="${prefix}shoulder_link" />
+         <axis xyz="0 0 1" />
+         <limit lower="-2.617" upper="2.617" effort="100" velocity="100" />
+      </joint>
+      <joint name="${prefix}joint_2" type="revolute">
+         <!--origin xyz="0.04825 0 0.14203" rpy="0 0 0" /-->
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <parent link="${prefix}shoulder_link" />
+         <child link="${prefix}biceps_link" />
+         <axis xyz="0 1 0" />
+         <limit lower="-1.571" upper="1.571" effort="100" velocity="100.571" />
+      </joint>
+      <joint name="${prefix}joint_3" type="revolute">
+         <origin xyz="${M_SCALE*48.25} 0 ${M_SCALE*142.03}" rpy="0 ${M_PI/2.0} 0" />
+         <parent link="${prefix}biceps_link" />
+         <child link="${prefix}forearm_link" />
+         <axis xyz="0 1 0" />
+         <limit lower="-1.571" upper="1.571" effort="100" velocity="100.571" />
+      </joint>
+      <joint name="${prefix}joint_4" type="revolute">
+         <origin xyz="0 0 ${M_SCALE*142.03}" rpy="0 0 0" />
+         <parent link="${prefix}forearm_link" />
+         <child link="${prefix}wrist_1_link" />
+         <axis xyz="0 1 0" />
+         <limit lower="-1.745" upper="1.745" effort="100" velocity="1100.571" />
+      </joint>
+      <joint name="${prefix}joint_5" type="revolute">
+         <origin xyz="0 0 ${M_SCALE*71.5}" rpy="0 0 0" />
+         <parent link="${prefix}wrist_1_link" />
+         <child link="${prefix}wrist_2_link" />
+         <axis xyz="0 0 1" />
+         <limit lower="-2.617" upper="2.617" effort="100" velocity="100.571" />
+      </joint>
+      <joint name="${prefix}joint_6" type="revolute">
+         <origin xyz = "0 0 ${M_SCALE*43}" rpy="0 0 0" />
+         <parent link="${prefix}wrist_2_link" />
+         <child link="${prefix}gripper_rail_link" />
+         <limit lower="0" upper="0" effort="0" velocity="0" />
+         <axis xyz="0 0 1" />
+         <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
+      </joint>
+      <joint name="${prefix}gripper_revolute_joint" type="revolute">
+         <origin xyz = "0 0 0" rpy="0 0 0" />
+         <parent link="${prefix}gripper_rail_link" />
+         <child link="${prefix}gripper_aux_link" />
+         <axis xyz="0 0 1" />
+         <limit lower="0" upper="2.6" effort="0" velocity="0.5" />
+      </joint>
+      <joint name="${prefix}gripper_prismatic_joint_1" type="fixed">
+         <origin xyz="0 -0.032 0" rpy="0 0 0" />
+         <parent link="${prefix}gripper_rail_link" />
+         <child link="${prefix}gripper_1_link" />
+         <axis xyz="0 -1 0" />
+         <limit lower="0" upper="0.027" effort="0" velocity="0.5" />
+      </joint>
+      <joint name="${prefix}gripper_prismatic_joint_2" type="fixed">
+         <origin xyz="0 0.032 0" rpy="0 0 0" />
+         <parent link="${prefix}gripper_rail_link" />
+         <child link="${prefix}gripper_2_link" />
+         <mimic joint="${prefix}gripper_prismatic_joint_1" />
+         <axis xyz="0 1 0" />
+         <limit lower="0" upper="0.027" effort="0" velocity="0.5" />
+      </joint>
+<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+  <robotNamespace>/ground</robotNamespace>
+</plugin>
+      <xacro:widowx_arm_transmission prefix="${prefix}" />
+   </xacro:macro>
+
+
+
+</robot>

@@ -1,0 +1,8 @@
+obstacle_detector:
+  rate: 1.0
+  obstacle_topic: /world/obstacles
+  obstacles:
+    - center: [0.0, 0.5, 0.0]
+      axes: [0.2, 0.1, 0.1]
+    - center: [10.3, 1.2, 0.17]
+      axes: [0.1, 0.1, 0.1]

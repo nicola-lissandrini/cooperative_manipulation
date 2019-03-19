@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="mav_name" value="neo11" />
+	<arg name="namespace" value="$(arg mav_name)" />
+	<arg name="world_name" default="basic" />
+	<arg name="enable_logging" default="false" />
+	<arg name="log_file" default="$(arg mav_name)" />
+	<arg name="debug" default="false"/>
+	<arg name="gui" default="true"/>
+	<arg name="paused" default="false"/>
+	<arg name="verbose" default="false"/>
+	<arg name="x" default="0.0"/>
+	<arg name="y" default="0.0"/>
+	<arg name="z" default="0.5"/>
+	<arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+
+	<remap from="/neo11/aerial_widowx_control/aerial_joint_1_controller/command" to="/neo11/command/joint1" />
+	<remap from="/neo11/aerial_widowx_control/aerial_joint_2_controller/command" to="/neo11/command/joint2" />
+
+	<!-- Init gazebo -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find rotors_gazebo)/worlds/$(arg world_name).world" />
+		<arg name="debug" value="$(arg debug)" />
+		<arg name="paused" value="false" />
+		<arg name="gui" value="$(arg gui)" />
+		<arg name="verbose" value="$(arg verbose)"/>
+	</include>
+
+	<group ns="$(arg mav_name)">
+		<arg name="model" value="$(find aerial_robot)/robots/neo_arm.urdf.xacro" />
+
+		<param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'
+			enable_logging:=$(arg enable_logging)
+			enable_ground_truth:=true
+			enable_mavlink_interface:=false
+			log_file:=$(arg log_file)
+			wait_to_record_bag:=false
+			mav_name:=$(arg mav_name)
+			namespace:=$(arg mav_name)" />
+		<param name="tf_prefix" type="string" value="$(arg tf_prefix)" />
+
+		<node name="spawn_$(arg mav_name)" pkg="gazebo_ros" type="spawn_model"
+			args="-param robot_description
+					-urdf
+					-x $(arg x)
+					-y $(arg y)
+					-z $(arg z)
+					-model $(arg mav_name)"
+			respawn="false" output="screen" />
+
+		<!-- IF VELOCITY INPUT 
+		<node name="lee_position_controller_node" pkg="rotors_control" type="lee_position_controller_node" output="screen">
+			<rosparam command="load" file="$(find rotors_gazebo)/resource/lee_controller_$(arg mav_name).yaml" />
+			<rosparam command="load" file="$(find rotors_gazebo)/resource/$(arg mav_name).yaml" />
+			<remap from="odometry" to="odometry_sensor1/odometry" />
+		</node> -->
+		<!-- IF POSITION TRACKING -->
+		<arg name="dynamic_reconfigure" default="True"/>
+		<arg name="use_motor_speed" default="True"/>
+		<arg name="controller" default="fa_sim"/>
+		<param name="uav_name" value="neo"/>
+
+
+		<!-- OLD RPY CONVERTER node name="rpyt_converter" pkg="uav_controllers" type="rpyt_to_angular_velocities_neo.py" output="screen" if="$(arg use_motor_speed)">
+			<rosparam command="load" file="$(find uav_controllers)/resource/neo.yaml" />
+			<remap from="~motor_speeds" to="command/motor_speed"/>
+			<remap from="~odometry" to="ground_truth/odometry"/>
+			<remap from="~command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust"/>
+		</node-->
+
+		<!-- horrible workarounds -->
+		<node name="fa_relay" pkg="topic_tools" type="relay"
+		args="/neo11/odometry_sensor1/odometry /neo11/fa_controller/uav_odometry" />
+		<node name="rotors_relay" pkg="topic_tools" type="relay"
+			args="/neo11/odometry_sensor1/odometry /neo11/odometry" />
+		
+		<node name="roll_pitch_yawrate_thrust_controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen">
+			<rosparam command="load" file="$(find rotors_gazebo)/resource/lee_controller_$(arg mav_name).yaml" />
+			<rosparam command="load" file="$(find rotors_gazebo)/resource/$(arg mav_name).yaml" />
+		</node>
+
+		<rosparam command="load" file="$(find uav_controllers)/resource/$(arg controller)/pid_gains/neo_gazebo_pid.yaml" />
+		<rosparam command="load" file="$(find uav_controllers)/resource/neo.yaml"/>
+		<param name="gain_type" value="$(arg controller)" />
+		<param name="config_type" value="config_pid" />
+		
+		<node name="fa_controller" pkg="uav_controllers"
+		type="fa_controller.py" output="screen">
+			<remap from="/neo11/odometry_sensor1/odometry" to="~fa_controler/uav_odometry"/>
+			<remap from="~uav_pose_reference" to="command/pose"/>
+			<remap from="~uav_roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust"/>
+		</node> 
+
+		<node name="dyn_reconfigure" pkg="rqt_gui" type="rqt_gui" args="-s reconfigure" if="$(arg dynamic_reconfigure)" />
+		<!-- END IF -->
+
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+		<!--node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
+			<remap from="joint_states" to="state/joint_states" />
+		</node-->
+
+		<rosparam file="$(find nexus_robot)/config/joint_state_controller.yaml" command="load"/> 
+		<node pkg="controller_manager" type="spawner" name="joint_state_controller_spawner_aer" args="joint_state_controller" respawn="false" output="screen">
+		</node>
+
+
+		<include file="$(find aerial_robot)/launch/aerial_widowx_controller.launch">
+			<arg name="name" value="aerial" />
+		</include>
+
+		<rosparam file="$(find aerial_robot)/config/widowx_joint_state.yaml" command="load" />
+		<node pkg="aerial_robot" type="aerial_widowx_joint_state" name="aerial_widowx_joint_state" output="screen" />
+
+		<param name="prediction_printer_description" textfile="$(find cooperative_manipulation)/plugins/print_trajectory.sdf" />
+
+		<node name="spawn_prediction_printer" pkg="gazebo_ros" type="spawn_model"
+				args="-param prediction_printer_description
+					  -sdf
+					  -x 0
+					  -y 0
+					  -z 0
+					  -model prediction_printer"
+				respawn="false" output="screen" />
+	</group>
+
+</launch>

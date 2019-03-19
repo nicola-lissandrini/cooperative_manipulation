@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<launch>
+	<!-- Options are:
+		 	gazebo, sml
+	-->
+	<arg name="arena" default="gazebo" />
+
+	<!-- Load arena environment -->
+	<include file="$(find commander)/launch/arena_$(arg arena).launch" />
+
+	<!-- Load MPCs -->
+	<include file="$(find aerial_mpc)/launch/mpc_wrapper.launch">
+		<arg name="config" value="$(arg arena)" />
+	</include>
+	<include file="$(find ground_mpc)/launch/mpc_wrapper.launch">
+		<arg name="config" value="$(arg arena)" />
+	</include>
+
+	<!-- Load commander -->
+	<include file="$(find commander)/launch/commander.launch">
+		<arg name="config" value="$(arg arena)" />
+	</include>
+</launch>

@@ -1,0 +1,13 @@
+mpc_output_interface:
+    rate: 100.0
+    mpc_control_topic: /neo11/mpc/control
+    base_cmd_vel_topic: /neo11/command/velocity
+    joints_cmd_vel_topic: /neo11/command/joints
+    prediction_topic: /neo11/mpc/prediction_trajectory
+    cmd_scale:
+      lin_base_vel: 1.0
+      ang_base_vel: 1.0
+      joint_vel: 1.0
+    joint_signs: [1, 1]
+    sat: 0.15 # BEFORE scaling
+

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot  xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+		xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+		xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+		xmlns:xacro="http://ros.org/wiki/xacro"
+		name="nexus_base" >
+	
+	<xacro:macro name="sphere_obstacle" params="xyz r name">
+		<link name="${name}">
+			<inertial>
+				<origin xyz="${xyz}" />
+				<mass value="1.0" />
+				<inertia ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+			</inertial>
+			<visual>
+				<origin xyz="${xyz}" />
+				<geometry>
+					<sphere radius="${r}" />
+				</geometry>
+			</visual>
+			<collision>
+				<origin xyz="${xyz}" />
+				<empty />
+			</collision>
+		</link>
+		<gazebo reference="${name}">
+			<material>Gazebo/Blue</material>
+			<static>true</static>
+   			<turnGravityOff>true</turnGravityOff>
+		</gazebo>
+	</xacro:macro>
+</robot>

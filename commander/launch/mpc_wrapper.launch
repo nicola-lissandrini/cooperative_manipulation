@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+	<group ns="neo11">
+		<rosparam command="load" file="$(find aerial_mpc)/config/mpc_wrapper.yaml" />
+		<rosparam command="load" file="$(find aerial_mpc)/config/mpc_input_interface.yaml" />
+		<rosparam command="load" file="$(find aerial_mpc)/config/mpc_output_interface.yaml" />
+		<rosparam command="load" file="$(find aerial_mpc)/config/obstacles.yaml" />
+		<rosparam command="load" file="$(find aerial_mpc)/config/velocity_integrator.yaml" />
+
+		<node pkg="aerial_mpc" type="aerial_mpc" name="aerial_mpc" output="screen" />
+		<node pkg="aerial_mpc" type="aerial_input_interface" name="aerial_input_interface" output="screen" />
+		<node pkg="aerial_mpc" type="aerial_output_interface" name="aerial_output_interface" output="screen" />
+		<!--node pkg="aerial_mpc" type="obstacle_detector" name="obstacle_detector" output="screen" /-->
+	</group>
+</launch>
