@@ -1,5 +1,5 @@
 # cooperative_manipulation
-Source code for cooperative manipulation task for aerial-ground robots with MPC, master degree project at KTH - Royal Institute OF Technology.
+Source code for cooperative manipulation task for aerial-ground robots with MPC, master degree project at KTH - Royal Institute of Technology.
 
 ## Installing
 Dependencies:
