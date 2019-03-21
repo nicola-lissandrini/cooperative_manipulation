@@ -28,8 +28,8 @@ After the experiment is done, to land the drone:
 This will finalize the experiment.
 
 ### Input and outputs connection in SML
-Inputs:
-Requirements from MOCAP:
+
+Requirements from Qualisys:
 
 * `/nexus1/odom`: pose of nexus base, the position should be aligned with the center and x axis should be facing the front of the base.
 * `/nexus1_end_effector`: pose of ground end effector. No particular requirements on the frame displacement, the configuration will affect the "nearby" position relative to the object and nothing else.
