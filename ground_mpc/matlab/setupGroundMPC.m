@@ -126,11 +126,14 @@ ocp.minimizeLSQ (W, h);
 ocp.minimizeLSQEndTerm (WN, hN);
 ocp.setModel (f);
 ocp.subjectTo (-0.25 <= u_base <= 0.25);
+ocp.subjectTo (-0.07 <= psi_v <= 0.07);
+ocp.subjectTo (-0.07 <= uth1 <= 0.07);
 ocp.subjectTo (-0.3 <= u_joints <= 0.3);
 ocp.subjectTo (-2.517 <= th1 <= 2.517);
 ocp.subjectTo (-pi/3 <= th2 <= pi/2 + pi/8);
 ocp.subjectTo (-pi/2 <= th3 <= pi/2);
 ocp.subjectTo (-1.745 <= th4 <= 1.745);
+ocp.subjectTo (-0.6 <= x_v);
 
 mpc = acado.OCPexport (ocp);
 mpc.set( 'HESSIAN_APPROXIMATION',       'GAUSS_NEWTON'      );

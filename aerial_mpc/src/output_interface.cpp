@@ -48,7 +48,7 @@ void OutputInterface::initROS ()
 
 	basePub = nh.advertise<geometry_msgs::TwistStamped> ((string) params["base_cmd_vel_topic"], 1);
 	jointsPub = nh.advertise<std_msgs::Float32MultiArray> ((string) params["joints_cmd_vel_topic"], 1);
-	trajPub = nh.advertise<aerial_mpc::Trajectory> ((string) params["prediction_topic"], 1);
+  trajPub = nh.advertise<aerial_mpc::Trajectory> ((string) params["prediction_topic"], 1);
 }
 
 void OutputInterface::setControlMsg (const geometry_msgs::TwistStamped &baseVel, const std_msgs::Float32MultiArray &jointsVel) {

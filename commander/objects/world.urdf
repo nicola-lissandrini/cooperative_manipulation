@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="table">
+	<link name="world">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://commander/meshes/port.dae" scale="0.7 0.7 0.7"/>
+			</geometry>
+		</visual>
+		<collision>
+			<empty />
+		</collision>
+		 
+	</link>
+	<gazebo reference="world">
+		<!--material>Gazebo/Blue</material-->
+		<static>true</static>
+		<turnGravityOff>true</turnGravityOff>
+	</gazebo>
+</robot>

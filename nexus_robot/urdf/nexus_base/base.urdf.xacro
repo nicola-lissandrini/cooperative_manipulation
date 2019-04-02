@@ -42,8 +42,8 @@
 
 
   <xacro:macro name="nexus_base" params="name">
-    <link name="${name}_footprint">
-      <collision>
+    <link name="${name}_footprint"
+>      <collision>
         <origin xyz="0 0 ${-base_size_z / 2.0}" rpy="0 0 0"/>
         <geometry>
           <box size="0.001 0.001 0.001"/>

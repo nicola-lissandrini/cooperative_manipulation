@@ -24,8 +24,6 @@ include_directories(
 
 add_message_files(
   FILES
-  InputDataMsg.msg
-  OutputDataMsg.msg
   Obstacle.msg
   ObstaclesArray.msg
   Trajectory.msg

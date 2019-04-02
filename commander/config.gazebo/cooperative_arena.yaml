@@ -17,7 +17,7 @@ commander:
       velocity: 0.01
     grip_pose:
       pos:
-        x: 0.25
+        x: 0.22
         y: 0.0
         z: 0.0
       rot:
@@ -46,7 +46,7 @@ commander:
       velocity: 0.05
     grip_pose:
       pos:
-        x: -0.25
+        x: -0.22
         y: 0.0
         z: 0.0
       rot:

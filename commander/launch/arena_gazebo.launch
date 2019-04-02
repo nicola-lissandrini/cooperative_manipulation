@@ -5,7 +5,7 @@
 	<arg name="gazebo_debug" default="false"/>
 	<arg name="gazebo_gui" default="true"/>
 	<arg name="gazebo_paused" default="false"/>
-	<arg name="gazebo_verbose" default="false"/>
+	<arg name="gazebo_verbose" default="true"/>
 	<arg name="world_name" default="basic" />
 
 

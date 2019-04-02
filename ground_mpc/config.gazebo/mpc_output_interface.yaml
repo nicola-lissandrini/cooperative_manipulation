@@ -7,7 +7,7 @@ mpc_output_interface:
     cmd_scale:
       lin_base_vel: 1.0
       ang_base_vel: 1.0
-      joint_vel: 0.87
+      joint_vel: 0.84
     joint_signs: [1, -1, -1, -1]
     sat_base: 0.2 # BEFORE scaling
     sat_joints: 0.2

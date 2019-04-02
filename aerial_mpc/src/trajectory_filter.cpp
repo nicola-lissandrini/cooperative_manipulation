@@ -54,13 +54,16 @@ nav_msgs::Odometry MPCTrajectoryFilter::filtered ()
 void MPCTrajectoryFilter::sendCommand ()
 {
 	nav_msgs::Odometry poseTwistCommand;
+  geometry_msgs::Pose targetPose;
 
 	if (traj.trajectory.size () == 0)
 		// Empty message. Skip
 		return;
+  targetPose = traj.trajectory[1];
 	// Apply velocity estimation filter
 	poseTwistCommand = filtered ();
 	commandPub.publish (poseTwistCommand);
+  refPub.publish (poseTwistCommand.pose.pose);
 }
 
 void MPCTrajectoryFilter::initParams ()
@@ -80,6 +83,8 @@ void MPCTrajectoryFilter::initROS ()
 	trajSub = nh.subscribe ((string) params["ref_trajectory_topic"], 1, &MPCTrajectoryFilter::trajCallback, this);
 	velSub = nh.subscribe ((string) params["ref_vel_topic"], 1, &MPCTrajectoryFilter::velCallback, this);
 	commandPub = nh.advertise<nav_msgs::Odometry> ((string) params["pose_command_topic"], 1);
+  // FOR DEBUG ONLY - LATE NIGHT CODE
+  refPub =  nh.advertise<geometry_msgs::Pose> ("/neo11/reference", 1);
 }
 
 int main (int argc, char *argv[])

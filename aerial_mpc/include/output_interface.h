@@ -21,7 +21,7 @@ class OutputInterface
 	ros::Subscriber controlSub;
 	ros::Publisher basePub;
 	ros::Publisher jointsPub;
-	ros::Publisher trajPub;
+  ros::Publisher trajPub;
 	aerial_mpc::Trajectory prediction;
 
 	double satVal;

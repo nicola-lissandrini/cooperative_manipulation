@@ -15,6 +15,7 @@ class MPCTrajectoryFilter
 	ros::Subscriber trajSub;
 	ros::Subscriber velSub;
 	ros::Publisher commandPub;
+  ros::Publisher refPub;
 	aerial_mpc::Trajectory traj;
 	geometry_msgs::Twist vel;
 

@@ -15,7 +15,7 @@
 			<visual>
 				<origin xyz="${xyz}" />
 				<geometry>
-					<sphere radius="${r}" />
+					<mesh filename="package://commander/meshes/box.dae" scale="0.15 0.15 0.15"/>
 				</geometry>
 			</visual>
 			<collision>
@@ -24,7 +24,7 @@
 			</collision>
 		</link>
 		<gazebo reference="${name}">
-			<material>Gazebo/Blue</material>
+			<!--material>Gazebo/Blue</material-->
 			<static>true</static>
    			<turnGravityOff>true</turnGravityOff>
 		</gazebo>

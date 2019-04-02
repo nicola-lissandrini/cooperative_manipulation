@@ -262,14 +262,14 @@
          <limit lower="0" upper="2.6" effort="0" velocity="0.5" />
       </joint>
       <joint name="${prefix}gripper_prismatic_joint_1" type="fixed">
-         <origin xyz="0 -0.032 0" rpy="0 0 0" />
+         <origin xyz="0 -0.02 0" rpy="0 0 0" />
          <parent link="${prefix}gripper_rail_link" />
          <child link="${prefix}gripper_1_link" />
          <axis xyz="0 -1 0" />
          <limit lower="0" upper="0.027" effort="0" velocity="0.5" />
       </joint>
       <joint name="${prefix}gripper_prismatic_joint_2" type="fixed">
-         <origin xyz="0 0.032 0" rpy="0 0 0" />
+         <origin xyz="0 0.02 0" rpy="0 0 0" />
          <parent link="${prefix}gripper_rail_link" />
          <child link="${prefix}gripper_2_link" />
          <mimic joint="${prefix}gripper_prismatic_joint_1" />

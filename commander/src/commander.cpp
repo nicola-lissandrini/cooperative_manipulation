@@ -336,18 +336,11 @@ void Commander::startObjectApproach (Agent &agent)
 
 void Commander::startTakeoff (Agent &agent)
 {
-	Pose hoveringPose;
-
-	Quaternion hoveringOrientation(-0.706328108495,
-									0.0331753394794,
-								   -0.0331753394794,
-									0.706328108495);
-
-	//hoveringPose.setOrigin (Vector3 (0.47, -2.07, 0.8));
+  Pose hoveringPose;
 
 	Pose agentPose = agent.pose ();
 	hoveringPose.setOrigin (agentPose.getOrigin () + Vector3 (0, 0, 0.5));
-	hoveringPose.setRotation (hoveringOrientation);
+  hoveringPose.setRotation (agentPose.getRotation ());
 
 	agent.commandPose (hoveringPose);
 }
@@ -361,6 +354,7 @@ void Commander::startLanding (Agent &agent)
 	Vector3 pos = agentPose.getOrigin ();
 
 	landingPose.setOrigin (Vector3 (pos.getX (), pos.getY (), -0.1));
+  landingPose.setRotation (agentPose.getRotation ());
 
 	agent.commandPose (landingPose);
 }
@@ -544,7 +538,7 @@ void Commander::dispatchActions ()
 			if (flags.attachEnabled) {
 				gripper.attachAgent (groundAgent);
 				sleep(1);
-				//gripper.attachAgent (aerialAgent);
+        //gripper.attachAgent (aerialAgent);
 				sleep(1);
 			}
 			status = COMMANDER_COOPERATIVE_TASK_HANDSHAKE;
@@ -563,7 +557,10 @@ void Commander::dispatchActions ()
 		status = COMMANDER_COOPERATIVE_TASK;
 		break;
 	case COMMANDER_COOPERATIVE_TASK:
-		// Perform one spin of the cooperative task
+    // Perform one spin of the cooperative task
+    if (flags.commandReceived) {
+      groundAgent.commandObjectPose (targetPose);
+    }
 		cooperativeTaskSpin ();
 		/*if (checkTaskCompleted ()) {
 			sleep (1);
@@ -586,8 +583,8 @@ void Commander::dispatchActions ()
 		break;
 	case COMMANDER_ABORT:
 		startLanding (aerialAgent);
-		gripper.detachAgent (aerialAgent);
-		sleep (0.5);
+    //gripper.detachAgent (aerialAgent);
+    //sleep (0.5);
 		gripper.detachAgent (groundAgent);
 		status = COMMANDER_NOT_READY;
 		break;

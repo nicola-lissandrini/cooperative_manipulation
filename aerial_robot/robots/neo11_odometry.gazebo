@@ -19,9 +19,9 @@
   limitations under the License.
 -->
 
-<robot name="$(arg mav_name)" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="neo11" xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- Instantiate the mav-->
-  <xacro:include filename="$(find aerial_robot)/robots/$(arg mav_name)_base.xacro" />
+  <xacro:include filename="$(find aerial_robot)/robots/neo11_base.xacro" />
 
   <!-- Mount a generic odometry sensor without odometry map (working everywhere). -->
   <xacro:odometry_plugin_macro

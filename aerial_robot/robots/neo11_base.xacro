@@ -21,6 +21,9 @@
 
 <robot name="neo11" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find rotors_description)/urdf/component_snippets.xacro" />
+  <xacro:arg name="namespace" default="neo11" />
+  <xacro:arg name="enable_ground_truth" default="false" />
+  <xacro:arg name="enable_logging" default="false" />
   
   <!-- Instantiate neo11 "mechanics" -->
   <xacro:include filename="$(find rotors_description)/urdf/neo11.xacro" />

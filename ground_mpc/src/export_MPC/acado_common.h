@@ -269,8 +269,8 @@ real_t w2[ 19 ];
 /** Matrix of size: 70 x 70 (row major format) */
 real_t H[ 4900 ];
 
-/** Matrix of size: 40 x 70 (row major format) */
-real_t A[ 2800 ];
+/** Matrix of size: 60 x 70 (row major format) */
+real_t A[ 4200 ];
 
 /** Column vector of size: 70 */
 real_t g[ 70 ];
@@ -281,17 +281,17 @@ real_t lb[ 70 ];
 /** Column vector of size: 70 */
 real_t ub[ 70 ];
 
-/** Column vector of size: 40 */
-real_t lbA[ 40 ];
+/** Column vector of size: 60 */
+real_t lbA[ 60 ];
 
-/** Column vector of size: 40 */
-real_t ubA[ 40 ];
+/** Column vector of size: 60 */
+real_t ubA[ 60 ];
 
 /** Column vector of size: 70 */
 real_t x[ 70 ];
 
-/** Column vector of size: 110 */
-real_t y[ 110 ];
+/** Column vector of size: 130 */
+real_t y[ 130 ];
 
 
 } ACADOworkspace;
