@@ -353,7 +353,7 @@ void Commander::startLanding (Agent &agent)
 	Pose agentPose = agent.pose ();
 	Vector3 pos = agentPose.getOrigin ();
 
-	landingPose.setOrigin (Vector3 (pos.getX (), pos.getY (), -0.1));
+  landingPose.setOrigin (Vector3 (pos.getX (), pos.getY (), 0.01));
   landingPose.setRotation (agentPose.getRotation ());
 
 	agent.commandPose (landingPose);
@@ -582,10 +582,12 @@ void Commander::dispatchActions ()
 		}
 		break;
 	case COMMANDER_ABORT:
-		startLanding (aerialAgent);
+    flags.abortFlag = false;
     //gripper.detachAgent (aerialAgent);
     //sleep (0.5);
 		gripper.detachAgent (groundAgent);
+    sleep(1);
+    startLanding (aerialAgent);
 		status = COMMANDER_NOT_READY;
 		break;
 	}
